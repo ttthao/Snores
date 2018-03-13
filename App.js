@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, StyleSheet, View, Image } from 'react-native';
+import { Text, View } from 'react-native';
 
-class Greeting extends Component {
-  render() {
-    return (
-      <Text>Hello sir {this.props.name}!</Text>
-    )
+class Blink extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {isShowingText: true};
+
+    // Toggle the state every second
+    setInterval(() => {
+      this.setState(previousState => {
+        return { isShowingText: !previousState.isShowingText };
+      });
+    }, 1000);
   }
-}
 
-export default class App extends Component {
   render() {
-    let pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-    };
+    let display = this.state.isShowingText ? this.props.text : ' ';
     return (
-      <View style={styles.container}>
-        <Text>Hello Tommy!!!</Text>
-        <Image source={pic} style={{width: 193, height: 110}}/>
-        <Greeting name="Thomas" />
-        <Greeting name="Phil" />
-      </View>
+      <Text>{display}</Text>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default class BlinkApp extends Component {
+  render() {
+    return ( 
+      <View>
+        <Blink text='I' />
+        <Blink text='Am' />
+        <Blink text='Tommy' />
+      </View>
+    )
+  }
+}
